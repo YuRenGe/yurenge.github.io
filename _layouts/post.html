@@ -1,74 +1,144 @@
 ---
-layout: default
+layout: page
+refactor: true
+pannel_includes:
+  - toc
+tail_includes:
+  - related-posts
+  - post-nav
+  - comments
 ---
-<script>
-  function copyToClipboard(){
-    //console.log(`Copied ${window.location.href}`);
-    var textArea = document.createElement("textarea");
-    textArea.value = window.location.href;
-    document.body.appendChild(textArea);
-    textArea.select();
-    document.execCommand("Copy");
-    textArea.remove();
 
-    var tooltip = document.getElementById("tooltiptext");
-    tooltip.innerHTML = "Link copied";
-  }
+{% include lang.html %}
 
-  function outFunc() {
-    var tooltip = document.getElementById("tooltiptext");
-    tooltip.innerHTML = "Copy Link";
-  }
-</script>
-<!-- Page Header -->
-{% if page.background %}
-<header class="masthead" style="background-image: url('{{ page.background | prepend: site.baseurl | replace: '/', '/' }}')">
-{% else %}
-<header class="masthead">
+{% if page.image.src %}
+  {% capture bg %}
+    {% unless page.image.no_bg %}{{ 'bg' }}{% endunless %}
+  {% endcapture %}
+  <img src="{{ page.image.src }}" class="preview-img {{ bg | strip }}"
+      alt="{{ page.image.alt | default: "Preview Image" }}"
+
+      {% if page.image.width %}
+        width="{{ page.image.width }}"
+      {% elsif page.image.w %}
+        width="{{ page.image.w }}"
+      {% endif %}
+
+      {% if page.image.height %}
+        height="{{ page.image.height }}"
+      {% elsif page.image.h %}
+        height="{{ page.image.h }}"
+      {% endif %}>
 {% endif %}
-  <div class="overlay"></div>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-        <div class="post-heading">
-          <h1>{{ page.title }}</h1>
-          {% if page.subtitle %}
-          <h2 class="subheading">{{ page.subtitle }}</h2>
-          {% endif %}
-          <span class="meta">J / {{ page.date | date: '%B %d, %Y' }}</span>
-        </div>
-      </div>
-    </div>
+
+<h1 data-toc-skip>{{ page.title }}</h1>
+
+<div class="post-meta text-muted">
+
+  <!-- author -->
+  <div>
+    {% capture author_name %}{{ page.author.name | default: site.social.name }}{% endcapture %}
+    {% assign author_link = nil %}
+
+    {% if page.author.link %}
+      {% assign author_link = page.author.link %}
+    {% elsif author_name == site.social.name %}
+      {% assign author_link = site.social.links[0] %}
+    {% endif %}
+
+    {{ site.data.locales[lang].post.written_by }}
+    <em>
+      {% if author_link %}
+        <a href="{{ author_link }}">{{ author_name }}</a>
+      {% else %}
+        {{ author_name }}
+      {% endif %}
+    </em>
   </div>
-</header>
 
-<div class="container">
-  <div class="row">
-    <div class="col-lg-10 col-md-10 mx-auto post-body">
+  <div class="d-flex">
+    <div>
+      <!-- published date -->
+      <span>
+        {{ site.data.locales[lang].post.posted }}
+        {% include timeago.html date=page.date tooltip=true %}
+      </span>
 
-      {{ content }}
-      <div class="tooltipcontainer">
-        <img
-          onclick="copyToClipboard()"
-          onmouseout="outFunc()"
-          class="share-icon"
-          src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4Igp3aWR0aD0iMzIiIGhlaWdodD0iMzIiCnZpZXdCb3g9IjAgMCAxNzIgMTcyIgpzdHlsZT0iIGZpbGw6IzAwMDAwMDsiPjxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0ibm9uemVybyIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHN0cm9rZS1kYXNoYXJyYXk9IiIgc3Ryb2tlLWRhc2hvZmZzZXQ9IjAiIGZvbnQtZmFtaWx5PSJub25lIiBmb250LXdlaWdodD0ibm9uZSIgZm9udC1zaXplPSJub25lIiB0ZXh0LWFuY2hvcj0ibm9uZSIgc3R5bGU9Im1peC1ibGVuZC1tb2RlOiBub3JtYWwiPjxwYXRoIGQ9Ik0wLDE3MnYtMTcyaDE3MnYxNzJ6IiBmaWxsPSJub25lIj48L3BhdGg+PGcgZmlsbD0iI2ZmMDUwNSI+PGcgaWQ9InN1cmZhY2UxIj48cGF0aCBkPSJNMTM0LjM3NSwxMC43NWMtMTQuNzgxMjUsMCAtMjYuODc1LDEyLjA5Mzc1IC0yNi44NzUsMjYuODc1YzAsMS44NDc2NiAwLjIwOTk2LDMuNjExMzMgMC41NDU5LDUuMzc1bC00OC43MTA5NCwyMS45MTk5M2MtNC45MTMwOCwtNi43MTg3NSAtMTIuODA3NjEsLTExLjE2OTkzIC0yMS43MDk5NiwtMTEuMTY5OTNjLTE0Ljc4MTI1LDAgLTI2Ljg3NSwxMi4wOTM3NSAtMjYuODc1LDI2Ljg3NWMwLDE0Ljc4MTI1IDEyLjA5Mzc1LDI2Ljg3NSAyNi44NzUsMjYuODc1YzguOTQ0MzMsMCAxNi45MjI4NSwtNC40OTMxNyAyMS43OTM5NSwtMTEuMjk1OWw0OC43NTI5MywyMS42Njc5N2MtMC40MTk5MiwxLjg0NzY2IC0wLjY3MTg3LDMuNzc5MjkgLTAuNjcxODcsNS43NTI5M2MwLDE0Ljc4MTI1IDEyLjA5Mzc1LDI2Ljg3NSAyNi44NzUsMjYuODc1YzE0Ljc4MTI1LDAgMjYuODc1LC0xMi4wOTM3NSAyNi44NzUsLTI2Ljg3NWMwLC0xNC43ODEyNSAtMTIuMDkzNzUsLTI2Ljg3NSAtMjYuODc1LC0yNi44NzVjLTguOTQ0MzMsMCAtMTYuOTIyODUsNC40OTMxNyAtMjEuNzkzOTUsMTEuMjk1OWwtNDguNzUyOTMsLTIxLjYyNTk3YzAuNDE5OTMsLTEuODg5NjYgMC42NzE4OCwtMy44MjEyOSAwLjY3MTg4LC01Ljc5NDkzYzAsLTIuMDE1NjIgLTAuMjUxOTUsLTMuOTg5MjYgLTAuNjcxODcsLTUuODc4OTFsNDguNDU4OTksLTIxLjkxOTkyYzQuODcxMDksNy4wNTQ2OSAxMi45NzU1OCwxMS42NzM4MiAyMi4wODc4OSwxMS42NzM4MmMxNC43ODEyNSwwIDI2Ljg3NSwtMTIuMDkzNzUgMjYuODc1LC0yNi44NzVjMCwtMTQuNzgxMjUgLTEyLjA5Mzc1LC0yNi44NzUgLTI2Ljg3NSwtMjYuODc1ek0xMzQuMzc1LDIxLjVjOC45ODYzMywwIDE2LjEyNSw3LjEzODY4IDE2LjEyNSwxNi4xMjVjMCw4Ljk4NjMzIC03LjEzODY3LDE2LjEyNSAtMTYuMTI1LDE2LjEyNWMtOC45ODYzMiwwIC0xNi4xMjUsLTcuMTM4NjcgLTE2LjEyNSwtMTYuMTI1YzAsLTguOTg2MzIgNy4xMzg2OCwtMTYuMTI1IDE2LjEyNSwtMTYuMTI1ek0zNy42MjUsNjQuNWM4Ljk4NjMzLDAgMTYuMTI1LDcuMTM4NjggMTYuMTI1LDE2LjEyNWMwLDguOTg2MzMgLTcuMTM4NjcsMTYuMTI1IC0xNi4xMjUsMTYuMTI1Yy04Ljk4NjMyLDAgLTE2LjEyNSwtNy4xMzg2NyAtMTYuMTI1LC0xNi4xMjVjMCwtOC45ODYzMiA3LjEzODY4LC0xNi4xMjUgMTYuMTI1LC0xNi4xMjV6TTEzNC4zNzUsMTA3LjVjOC45ODYzMywwIDE2LjEyNSw3LjEzODY4IDE2LjEyNSwxNi4xMjVjMCw4Ljk4NjMzIC03LjEzODY3LDE2LjEyNSAtMTYuMTI1LDE2LjEyNWMtOC45ODYzMiwwIC0xNi4xMjUsLTcuMTM4NjcgLTE2LjEyNSwtMTYuMTI1YzAsLTguOTg2MzIgNy4xMzg2OCwtMTYuMTI1IDE2LjEyNSwtMTYuMTI1eiI+PC9wYXRoPjwvZz48L2c+PC9nPjwvc3ZnPg=="
-          alt="Share Icon"
-        >
-        <span id="tooltiptext" class="tooltiptext">Copy Link</span>
-      </div>
-      <hr>
-      <div class="clearfix">
+      <!-- lastmod date -->
+      {% if page.last_modified_at %}
+      <span>
+        {{ site.data.locales[lang].post.updated }}
+        {% include timeago.html date=page.last_modified_at tooltip=true %}
+      </span>
+      {% endif %}
 
-        {% if page.previous.url %}
-        <a class="btn btn-primary float-left" href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{ page.previous.title }}">&larr; Previous<span class="d-none d-md-inline"> Post</span></a>
-        {% endif %}
-        {% if page.next.url %}
-        <a class="btn btn-primary float-right" href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{ page.next.title }}">Next<span class="d-none d-md-inline"> Post</span> &rarr;</a>
-        {% endif %}
+      <!-- read time -->
+      {% include read-time.html content=content prompt=true %}
 
-      </div>
-
+      <!-- page views -->
+      {% if site.google_analytics.pv.proxy_endpoint or site.google_analytics.pv.cache_path %}
+      <span>
+        <em id="pv" class="pageviews">
+          <i class="fas fa-spinner fa-spin fa-fw"></i>
+        </em>
+        {{ site.data.locales[lang].post.pageview_measure }}
+      </span>
+      {% endif %}
     </div>
-  </div>
+
+  </div> <!-- .d-flex -->
+
+</div> <!-- .post-meta -->
+
+<div class="post-content">
+  {{ content }}
 </div>
+
+<div class="post-tail-wrapper text-muted">
+
+  <!-- categories -->
+  {% if page.categories.size > 0 %}
+  <div class="post-meta mb-3">
+    <i class="far fa-folder-open fa-fw mr-1"></i>
+    {% for category in page.categories %}
+      <a href='{{ site.baseurl }}/categories/{{ category | slugify | url_encode }}/'>{{ category }}</a>
+      {%- unless forloop.last -%}, {%- endunless -%}
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <!-- tags -->
+  {% if page.tags.size > 0 %}
+  <div class="post-tags">
+    <i class="fa fa-tags fa-fw mr-1"></i>
+      {% for tag in page.tags %}
+      <a href="{{ site.baseurl }}/tags/{{ tag | slugify | url_encode }}/"
+          class="post-tag no-text-decoration" >
+        {{- tag -}}
+      </a>
+      {% endfor %}
+  </div>
+  {% endif %}
+
+  <div class="post-tail-bottom
+    d-flex justify-content-between align-items-center mt-3 pt-5 pb-2">
+    <div class="license-wrapper">
+
+      {% if site.data.locales[lang].copyright.license.template %}
+
+        {% capture _replacement %}
+        <a href="{{ site.data.locales[lang].copyright.license.link }}">
+          {{ site.data.locales[lang].copyright.license.name }}
+        </a>
+        {% endcapture %}
+
+        {{ site.data.locales[lang].copyright.license.template | replace: ':LICENSE_NAME', _replacement }}
+
+      {% endif %}
+    </div>
+
+    {% include post-sharing.html %}
+
+  </div><!-- .post-tail-bottom -->
+
+</div><!-- div.post-tail-wrapper -->
