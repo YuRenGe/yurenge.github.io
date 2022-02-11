@@ -2,8 +2,8 @@
 layout: post
 title: VAR-SD-MSE-COV!
 subheading: Introduction of variance, Standard Deviation, Meas Squre Error and Covariance.
-author: Jeffrey
-categories: jekyll
+author: Dongfang Z
+categories: MATHMATICAL
 banner:
   video: https://vjs.zencdn.net/v/oceans.mp4
   loop: true
@@ -19,8 +19,6 @@ banner:
 tags: Variance Standard_Deviation Meas_Squre_Error Covariance
 sidebar: []
 ---
-
-# 数学基础概念
 
 ## 方差：
 
@@ -53,7 +51,9 @@ MSE是各数据偏离**真实值**差值的平方和的平均数，方差是偏�
 **协方差**（Covariance）在概率论和统计学中用于衡量两个变量的总体误差。而方差是协方差的一种特殊情况，即当两个变量是相同的情况。
 
 协方差表示的是两个变量的总体的误差，这与只表示一个变量误差的方差不同。如果两个变量的变化趋势一致，也就是说如果其中一个大于自身的期望值，另外一个也大于自身的期望值，那么两个变量之间的协方差就是正值。如果两个变量的变化趋势相反，即其中一个大于自身的期望值，另外一个却小于自身的期望值，那么两个变量之间的协方差就是负值。
+
 $$
 Cov(X,Y)=E[(X-\mu_x)(Y-\mu_y)]
 $$
+
 简单来说就是看两个变量之间的变化趋势，他们是同向还是反向的，同向的程度或反向的程度是怎么样的。
