@@ -18,6 +18,7 @@ banner:
   subheading_style: "color: gold"
 tags: Variance Standard_Deviation Meas_Squre_Error Covariance
 sidebar: []
+mathjax: true
 ---
 
 # 数学基础概念
