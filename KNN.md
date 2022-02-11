@@ -1,3 +1,25 @@
+---
+layout: post
+title: KNN
+subheading: Introduction to the KNN Algorithm.
+author: Dongfang Zhao
+categories: data science
+banner:
+  video: https://vjs.zencdn.net/v/oceans.mp4
+  loop: true
+  volume: 0.8
+  start_at: 8.5
+  image: https://bit.ly/3xTmdUP
+  opacity: 0.618
+  background: "#000"
+  height: "100vh"
+  min_height: "38vh"
+  heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
+  subheading_style: "color: gold"
+tags: KNN 距离度量学习 
+sidebar: []
+---
+
 # KNN(K近邻算法)
 
 全称：K-nearest neighbors algorithm(K近邻算法) 
@@ -7,7 +29,7 @@
 
 算法概述：KNN是通过测量不同特征值之间的距离进行分类。它的思路是：如果一个样本在特征空间中的k个最相似(即特征空间中最邻近)的样本中的大多数属于某一个类别，则该样本也属于这个类别。简单说如果有A、B两类样本，这时有一个新的数据，计算距离该数据最近的K个样本所属的种类，进而判断出新数据的分类。一般计算距离的方式有曼哈顿距离，欧几里得距离。
 
-![image-20220210143025721](D:\所有笔记\图片目录\image-20220210143025721.png)
+
 
 The K-NN working can be explained on the basis of the below algorithm:
 
