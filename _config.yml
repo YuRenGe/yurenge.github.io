@@ -137,10 +137,10 @@ yat:
 #   - about.md
 
 # Page default value
-# defaults:
-#   home:
-#     heading: "Your awesome heading"
-#     subheading: "Your awesome subheading"
+defaults:
+  home:
+    heading: "Dongfang's Blog"
+    subheading: "Recording knowledge and daliy of my life"
 #     banner: "Your image url"
 
 # Banner default settings
