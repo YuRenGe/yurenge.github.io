@@ -182,6 +182,7 @@ defaults:
 markdown: kramdown
 kmarkdown:
   input: GFM
+mathjax: https://cdn.bootcss.com/mathjax/2.7.0/MathJax.js
 
 plugins:
   - jekyll-feed
