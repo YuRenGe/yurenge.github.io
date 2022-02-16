@@ -1,5 +1,24 @@
-# KNN算法的简单实现
-
+---
+layout: post
+title: KNN算法简单实现!
+subheading: 
+author: Dongfang Z
+categories: KNN
+banner:
+  video: 
+  loop: true
+  volume: 0.8
+  start_at: 8.5
+  image: https://bit.ly/3xTmdUP
+  opacity: 0.618
+  background: "#000"
+  height: "100vh"
+  min_height: "38vh"
+  heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
+  subheading_style: "color: gold"
+tags: KNN code
+sidebar: []
+---
 
 ```python
 import pandas as pd
